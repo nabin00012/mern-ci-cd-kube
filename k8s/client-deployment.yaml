@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: your-dockerhub-username/mern-client:latest
+        image: nabin00012/mern-client:latest
         ports:
         - containerPort: 80
         env:
