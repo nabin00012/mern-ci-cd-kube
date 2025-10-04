@@ -1,11 +1,4 @@
-# 🎯 MERN Stack Application Demo Guide
 
-## 🚀 Quick Start (Live Demo)
-
-### Prerequisites Check
-- ✅ Docker Desktop is running
-- ✅ Ports 3000, 5001, 27017 are available
-- ✅ Git repository is up to date
 
 ### 1. Start the Application
 ```bash
@@ -162,29 +155,3 @@ docker-compose logs client
 
 ---
 
-## 💡 Questions You Might Get
-
-**Q: "Can this scale?"**
-A: "Yes! It's containerized and includes Kubernetes manifests for horizontal scaling, load balancing, and auto-recovery."
-
-**Q: "How do you handle data persistence?"**
-A: "MongoDB runs in a container with persistent volumes, and we have backup strategies in the K8s config."
-
-**Q: "What about security?"**
-A: "We use Helmet for security headers, input validation, CORS configuration, and run containers as non-root users."
-
-**Q: "CI/CD Pipeline?"**
-A: "Full GitHub Actions workflow with automated testing, building, Docker image creation, and deployment to container registry."
-
----
-
-## 🎯 Next Steps You Can Show
-
-1. **Production Deployment**: "We can deploy this to any cloud provider with kubectl"
-2. **Monitoring**: "Add Prometheus and Grafana for metrics"
-3. **Authentication**: "Easy to add JWT authentication"
-4. **More Features**: "API is extensible for user management, file uploads, etc."
-
----
-
-*💡 Pro Tip: Have the application running before your presentation starts, and keep the terminal visible to show the real-time logs during the demo!*
