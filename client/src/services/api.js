@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Create axios instance with default configuration
 const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
     timeout: 10000,
@@ -9,7 +8,6 @@ const api = axios.create({
     },
 });
 
-// Request interceptor for logging
 api.interceptors.request.use(
     (config) => {
         console.log(`🚀 API Request: ${config.method?.toUpperCase()} ${config.url}`);
@@ -21,7 +19,6 @@ api.interceptors.request.use(
     }
 );
 
-// Response interceptor for error handling
 api.interceptors.response.use(
     (response) => {
         console.log(`✅ API Response: ${response.status} ${response.config.url}`);
@@ -30,9 +27,7 @@ api.interceptors.response.use(
     (error) => {
         console.error('❌ API Response Error:', error.response?.data || error.message);
 
-        // Handle different error scenarios
         if (error.response) {
-            // Server responded with error status
             const { status, data } = error.response;
 
             if (status === 404) {
@@ -45,16 +40,13 @@ api.interceptors.response.use(
                 throw new Error(data.error || 'An error occurred');
             }
         } else if (error.request) {
-            // Network error
             throw new Error('Network error. Please check your connection.');
         } else {
-            // Other error
             throw new Error('An unexpected error occurred');
         }
     }
 );
 
-// API functions
 export const getMessages = async (params = {}) => {
     return api.get('/api/messages', { params });
 };
@@ -83,5 +75,4 @@ export const checkHealth = async () => {
     return api.get('/api/health');
 };
 
-// Export the configured axios instance for custom requests
 export default api;

@@ -11,7 +11,6 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch messages on component mount
     useEffect(() => {
         fetchMessages();
     }, []);
@@ -35,7 +34,6 @@ function App() {
             setError(null);
             const newMessage = await createMessage(messageData);
 
-            // Add new message to the beginning of the list
             setMessages(prevMessages => [newMessage.data, ...prevMessages]);
 
             return { success: true };

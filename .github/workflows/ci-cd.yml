@@ -12,7 +12,6 @@ env:
   CLIENT_IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/mern-client
 
 jobs:
-  # Test Backend
   test-server:
     name: Test Backend
     runs-on: ubuntu-latest
@@ -57,7 +56,6 @@ jobs:
         NODE_ENV: test
         MONGODB_URI_TEST: mongodb://admin:password123@localhost:27017/mernapp_test?authSource=admin
 
-  # Test Frontend
   test-client:
     name: Test Frontend
     runs-on: ubuntu-latest
@@ -95,7 +93,6 @@ jobs:
         name: client-build
         path: client/build/
 
-  # Build and Push Docker Images
   build-and-push:
     name: Build and Push Docker Images
     needs: [test-server, test-client]
@@ -164,7 +161,6 @@ jobs:
         build-args: |
           REACT_APP_API_URL=http://localhost:5000
 
-  # Deploy to Kubernetes (Demo - Update with your cluster details)
   deploy:
     name: Deploy to Kubernetes
     needs: [build-and-push]
@@ -208,7 +204,6 @@ jobs:
         echo "To deploy to your Kubernetes cluster, run:"
         echo "kubectl apply -f k8s/"
         
-  # Security Scanning
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest

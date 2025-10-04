@@ -1,4 +1,3 @@
-# MongoDB Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -62,7 +61,7 @@ spec:
           claimName: mongo-pvc
 
 ---
-# MongoDB Service
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -76,7 +75,7 @@ spec:
   type: ClusterIP
 
 ---
-# MongoDB Secret
+---
 apiVersion: v1
 kind: Secret
 metadata:
@@ -86,7 +85,7 @@ data:
   mongo-password: cGFzc3dvcmQxMjM=  # base64 encoded "password123"
 
 ---
-# MongoDB Persistent Volume Claim
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

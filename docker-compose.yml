@@ -1,5 +1,4 @@
 services:
-  # MongoDB Database
   mongo:
     image: mongo:7-jammy
     container_name: mern-mongo
@@ -22,7 +21,6 @@ services:
       retries: 3
       start_period: 40s
 
-  # Express.js Backend Server
   server:
     build:
       context: ./server
@@ -51,12 +49,11 @@ services:
       start_period: 40s
     command: npm run dev
 
-  # React.js Frontend Client
   client:
     build:
       context: ./client
       dockerfile: Dockerfile
-      target: builder  # Use builder stage for development
+      target: builder
     container_name: mern-client
     restart: unless-stopped
     ports:
@@ -75,7 +72,6 @@ services:
       - mern-network
     command: npm start
 
-  # Nginx Reverse Proxy (Production-like setup)
   nginx:
     image: nginx:alpine
     container_name: mern-nginx

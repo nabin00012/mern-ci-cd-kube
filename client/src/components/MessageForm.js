@@ -20,7 +20,6 @@ const MessageForm = ({ onSubmit, disabled }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Basic validation
         if (!formData.text.trim() || !formData.author.trim()) {
             return;
         }
@@ -35,11 +34,9 @@ const MessageForm = ({ onSubmit, disabled }) => {
             });
 
             if (result.success) {
-                // Clear form on success
                 setFormData({ text: '', author: '' });
                 setSuccessMessage('Message posted successfully! 🎉');
 
-                // Clear success message after 3 seconds
                 setTimeout(() => {
                     setSuccessMessage('');
                 }, 3000);

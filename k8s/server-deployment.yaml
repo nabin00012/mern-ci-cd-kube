@@ -1,4 +1,3 @@
-# Server Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -52,7 +51,7 @@ spec:
         imagePullPolicy: Always
 
 ---
-# Server Service
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -69,7 +68,7 @@ spec:
   type: ClusterIP
 
 ---
-# Server Secret
+---
 apiVersion: v1
 kind: Secret
 metadata:

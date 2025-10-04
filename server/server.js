@@ -5,19 +5,16 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 require('dotenv').config();
 
-// Import routes
 const messageRoutes = require('./routes/messages');
 
 const app = express();
 
-// Middleware setup
-app.use(helmet()); // Security headers
-app.use(morgan('combined')); // Request logging
-app.use(cors()); // Enable CORS for all routes
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(helmet());
+app.use(morgan('combined'));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Database connection
 const connectDB = async () => {
     try {
         const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mernapp';
@@ -29,10 +26,7 @@ const connectDB = async () => {
     }
 };
 
-// Connect to database
 connectDB();
-
-// Health check endpoint
 app.get('/api/health', (req, res) => {
     res.status(200).json({
         status: 'OK',
@@ -42,10 +36,8 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Routes
 app.use('/api/messages', messageRoutes);
 
-// Root endpoint
 app.get('/', (req, res) => {
     res.json({
         message: '🚀 MERN Stack Backend API',
@@ -57,15 +49,12 @@ app.get('/', (req, res) => {
     });
 });
 
-// 404 handler
 app.use('*', (req, res) => {
     res.status(404).json({
         error: 'Route not found',
         message: `Cannot ${req.method} ${req.originalUrl}`
     });
 });
-
-// Error handling middleware
 app.use((error, req, res, next) => {
     console.error('❌ Error:', error.message);
     res.status(error.status || 500).json({
@@ -74,14 +63,12 @@ app.use((error, req, res, next) => {
     });
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
 });
 
-// Graceful shutdown
 process.on('SIGTERM', () => {
     console.log('🛑 SIGTERM received. Shutting down gracefully...');
     server.close(() => {

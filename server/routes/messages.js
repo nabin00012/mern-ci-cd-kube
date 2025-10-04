@@ -2,29 +2,22 @@ const express = require('express');
 const Message = require('../models/Message');
 const router = express.Router();
 
-// @route   GET /api/messages
-// @desc    Get all messages
-// @access  Public
 router.get('/', async (req, res) => {
     try {
         const { limit = 10, page = 1, author } = req.query;
 
-        // Build query
         const query = { isActive: true };
         if (author) {
-            query.author = new RegExp(author, 'i'); // Case-insensitive search
+            query.author = new RegExp(author, 'i');
         }
 
-        // Calculate skip value for pagination
         const skip = (parseInt(page) - 1) * parseInt(limit);
 
-        // Execute query
         const messages = await Message.find(query)
             .sort({ timestamp: -1 })
             .limit(parseInt(limit))
             .skip(skip);
 
-        // Get total count for pagination
         const total = await Message.countDocuments(query);
 
         res.json({
@@ -47,9 +40,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// @route   GET /api/messages/:id
-// @desc    Get single message by ID
-// @access  Public
 router.get('/:id', async (req, res) => {
     try {
         const message = await Message.findById(req.params.id);
@@ -75,14 +65,10 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// @route   POST /api/messages
-// @desc    Create a new message
-// @access  Public
 router.post('/', async (req, res) => {
     try {
         const { text, author } = req.body;
 
-        // Validation
         if (!text || !author) {
             return res.status(400).json({
                 success: false,
@@ -90,7 +76,6 @@ router.post('/', async (req, res) => {
             });
         }
 
-        // Create new message
         const message = new Message({
             text: text.trim(),
             author: author.trim()
@@ -106,7 +91,6 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.error('Error creating message:', error);
 
-        // Handle validation errors
         if (error.name === 'ValidationError') {
             const validationErrors = Object.values(error.errors).map(err => err.message);
             return res.status(400).json({
@@ -124,9 +108,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// @route   PUT /api/messages/:id
-// @desc    Update a message
-// @access  Public
 router.put('/:id', async (req, res) => {
     try {
         const { text, author } = req.body;
@@ -140,7 +121,6 @@ router.put('/:id', async (req, res) => {
             });
         }
 
-        // Update fields if provided
         if (text) message.text = text.trim();
         if (author) message.author = author.trim();
 
@@ -171,9 +151,6 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// @route   DELETE /api/messages/:id
-// @desc    Soft delete a message
-// @access  Public
 router.delete('/:id', async (req, res) => {
     try {
         const message = await Message.findById(req.params.id);
@@ -185,7 +162,6 @@ router.delete('/:id', async (req, res) => {
             });
         }
 
-        // Soft delete - just mark as inactive
         message.isActive = false;
         await message.save();
 
@@ -203,9 +179,6 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// @route   GET /api/messages/recent/:count
-// @desc    Get recent messages using static method
-// @access  Public
 router.get('/recent/:count', async (req, res) => {
     try {
         const count = parseInt(req.params.count) || 5;
