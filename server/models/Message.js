@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Message schema definition
 const messageSchema = new mongoose.Schema({
     text: {
         type: String,
@@ -22,12 +23,14 @@ const messageSchema = new mongoose.Schema({
         default: true
     }
 }, {
-    timestamps: true
+    timestamps: true // Adds createdAt and updatedAt automatically
 });
 
+// Add index for better query performance
 messageSchema.index({ timestamp: -1 });
 messageSchema.index({ author: 1 });
 
+// Virtual for formatted timestamp
 messageSchema.virtual('formattedDate').get(function () {
     return this.timestamp.toLocaleDateString('en-US', {
         year: 'numeric',
@@ -38,6 +41,7 @@ messageSchema.virtual('formattedDate').get(function () {
     });
 });
 
+// Ensure virtual fields are serialized
 messageSchema.set('toJSON', {
     virtuals: true,
     transform: function (doc, ret) {
@@ -47,6 +51,7 @@ messageSchema.set('toJSON', {
     }
 });
 
+// Static method to get recent messages
 messageSchema.statics.getRecent = function (limit = 10) {
     return this.find({ isActive: true })
         .sort({ timestamp: -1 })
@@ -54,6 +59,7 @@ messageSchema.statics.getRecent = function (limit = 10) {
         .exec();
 };
 
+// Instance method to format message
 messageSchema.methods.toSummary = function () {
     return {
         id: this._id,
