@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './MessageCard.css';
 
-const MessageCard = ({ message, index }) => {
+const MessageCard = ({ message, index, onReply }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const formatDate = (dateString) => {
@@ -16,6 +16,16 @@ const MessageCard = ({ message, index }) => {
             });
         } catch {
             return 'Just now';
+        }
+    };
+
+    const handleReplyClick = () => {
+        if (onReply) {
+            onReply({
+                id: message.id || message._id,
+                author: message.author,
+                text: message.text
+            });
         }
     };
 
@@ -49,6 +59,16 @@ const MessageCard = ({ message, index }) => {
                 </div>
             </div>
 
+            {message.replyTo && message.replyToAuthor && (
+                <div className="replied-to-message">
+                    <span className="reply-indicator">↩️</span>
+                    <div className="replied-content">
+                        <span className="replied-author">@{message.replyToAuthor}</span>
+                        <span className="replied-text">{message.replyToText || 'Original message'}</span>
+                    </div>
+                </div>
+            )}
+
             <div className="message-content">
                 <p className="message-text">
                     {displayText || 'No message content'}
@@ -75,6 +95,14 @@ const MessageCard = ({ message, index }) => {
                         {message.author || 'Anonymous'}
                     </span>
                 </div>
+                <button 
+                    className="reply-button"
+                    onClick={handleReplyClick}
+                    aria-label="Reply to this message"
+                >
+                    <span className="reply-button-icon">↩️</span>
+                    <span className="reply-button-text">Reply</span>
+                </button>
             </div>
         </div>
     );

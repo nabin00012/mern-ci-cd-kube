@@ -21,6 +21,25 @@ const messageSchema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    // Reply functionality
+    replyTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Message',
+        default: null
+    },
+    replyToAuthor: {
+        type: String,
+        default: null
+    },
+    replyToText: {
+        type: String,
+        default: null,
+        maxlength: [100, 'Reply preview cannot exceed 100 characters']
+    },
+    replyCount: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true // Adds createdAt and updatedAt automatically

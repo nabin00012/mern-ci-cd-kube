@@ -2,7 +2,7 @@ import React from 'react';
 import MessageCard from './MessageCard';
 import './MessageList.css';
 
-const MessageList = ({ messages, loading, onRefresh }) => {
+const MessageList = ({ messages, loading, onRefresh, onReply }) => {
     if (loading) {
         return (
             <div className="message-list">
@@ -42,6 +42,7 @@ const MessageList = ({ messages, loading, onRefresh }) => {
                         key={message.id || message._id || index}
                         message={message}
                         index={index}
+                        onReply={onReply}
                     />
                 ))}
             </div>

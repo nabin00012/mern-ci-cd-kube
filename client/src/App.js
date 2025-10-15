@@ -10,6 +10,7 @@ function App() {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [replyingTo, setReplyingTo] = useState(null);
 
     useEffect(() => {
         fetchMessages();
@@ -32,9 +33,23 @@ function App() {
     const handleMessageSubmit = async (messageData) => {
         try {
             setError(null);
-            const newMessage = await createMessage(messageData);
+            
+            // Add reply information if replying to a message
+            const dataToSend = {
+                ...messageData,
+                ...(replyingTo && {
+                    replyTo: replyingTo.id,
+                    replyToAuthor: replyingTo.author,
+                    replyToText: replyingTo.text.substring(0, 100)
+                })
+            };
+            
+            const newMessage = await createMessage(dataToSend);
 
             setMessages(prevMessages => [newMessage.data, ...prevMessages]);
+            
+            // Clear reply state after successful submission
+            setReplyingTo(null);
 
             return { success: true };
         } catch (err) {
@@ -43,6 +58,19 @@ function App() {
             setError(errorMessage);
             return { success: false, error: errorMessage };
         }
+    };
+
+    const handleReply = (message) => {
+        setReplyingTo(message);
+        // Scroll to form
+        const formSection = document.querySelector('.form-section');
+        if (formSection) {
+            formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
+
+    const handleCancelReply = () => {
+        setReplyingTo(null);
     };
 
     const handleRefresh = () => {
@@ -112,16 +140,36 @@ function App() {
                             <div className="section-header">
                                 <h2 className="section-title">
                                     <span className="title-icon">✍️</span>
-                                    Send Message
+                                    {replyingTo ? 'Reply to Message' : 'Send Message'}
                                 </h2>
                                 <div className="live-indicator">
                                     <span className="live-dot"></span>
                                     <span className="live-text">LIVE</span>
                                 </div>
                             </div>
+                            {replyingTo && (
+                                <div className="reply-preview">
+                                    <div className="reply-preview-header">
+                                        <span className="reply-icon">↩️</span>
+                                        <span className="reply-to-text">Replying to <strong>{replyingTo.author}</strong></span>
+                                        <button 
+                                            className="cancel-reply-btn"
+                                            onClick={handleCancelReply}
+                                            aria-label="Cancel reply"
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                    <div className="reply-preview-content">
+                                        {replyingTo.text.substring(0, 100)}
+                                        {replyingTo.text.length > 100 && '...'}
+                                    </div>
+                                </div>
+                            )}
                             <MessageForm
                                 onSubmit={handleMessageSubmit}
                                 disabled={loading}
+                                replyingTo={replyingTo}
                             />
                         </div>
 
@@ -149,6 +197,7 @@ function App() {
                                 messages={messages}
                                 loading={loading}
                                 onRefresh={handleRefresh}
+                                onReply={handleReply}
                             />
                         </div>
                     </div>

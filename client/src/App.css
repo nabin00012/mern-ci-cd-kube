@@ -417,6 +417,69 @@
   transform: rotate(90deg);
 }
 
+/* Reply Preview */
+.reply-preview {
+  margin: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(79, 172, 254, 0.08));
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.reply-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.reply-icon {
+  font-size: 1rem;
+}
+
+.reply-to-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.reply-to-text strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.cancel-reply-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  transition: all var(--transition-base);
+  line-height: 1;
+  font-weight: 300;
+}
+
+.cancel-reply-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: rotate(90deg);
+  color: var(--danger);
+}
+
+.reply-preview-content {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+  padding-left: 1.5rem;
+}
+
 .app-description {
   font-size: 1.1rem;
   opacity: 0.9;
