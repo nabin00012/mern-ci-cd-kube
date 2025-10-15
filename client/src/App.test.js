@@ -11,8 +11,9 @@ describe('App Component', () => {
     test('renders RealChat application title', async () => {
         render(<App />);
         await waitFor(() => {
-            const titleElement = screen.getByText(/RealChat/i);
-            expect(titleElement).toBeInTheDocument();
+            // Use getAllByText since RealChat appears in both logo and hero
+            const titleElements = screen.getAllByText(/RealChat/i);
+            expect(titleElements.length).toBeGreaterThan(0);
         });
     });
 
