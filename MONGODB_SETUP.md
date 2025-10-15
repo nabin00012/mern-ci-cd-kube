@@ -20,8 +20,8 @@ Your connection string needs 2 changes:
 2. **Replace `<db_password>`** with your actual MongoDB password
 3. **Add database name** `/mernapp` before the `?`
 
-### Example:
-If your username is `mernuser` and password is `MyPass123`:
+**Example:**
+If your username is `mernuser` and password is `YourSecurePassword123`:
 
 **BEFORE:**
 ```
@@ -30,7 +30,7 @@ mongodb+srv://<db_username>:<db_password>@cluster0.k2atslp.mongodb.net/?retryWri
 
 **AFTER:**
 ```
-mongodb+srv://mernuser:MyPass123@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://mernuser:YourSecurePassword123@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ⚠️ **Important**: Add `/mernapp` before the `?` to specify your database name!
@@ -42,7 +42,7 @@ mongodb+srv://mernuser:MyPass123@cluster0.k2atslp.mongodb.net/mernapp?retryWrite
 When you deploy your backend on Render, use this as your `MONGODB_URI` environment variable:
 
 ```
-mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://YOUR_USERNAME:YOUR_SECURE_PASSWORD@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ### Setting it in Render:
@@ -70,9 +70,9 @@ If your password contains special characters like `@`, `#`, `!`, `%`, etc., you 
 | `:` | `%3A` |
 | `?` | `%3F` |
 
-**Example:** If password is `MyPass@123#`:
+**Example:** If password is `SecurePass@123#`:
 ```
-mongodb+srv://mernuser:MyPass%40123%23@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://mernuser:SecurePass%40123%23@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ---
