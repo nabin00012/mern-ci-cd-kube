@@ -6,11 +6,26 @@ const Message = require('../models/Message');
 // Test database
 const MONGODB_URI = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mernapp_test';
 
+// Helper function to connect with retries
+const connectWithRetry = async (retries = 5, delay = 1000) => {
+    for (let i = 0; i < retries; i++) {
+        try {
+            await mongoose.connect(MONGODB_URI);
+            console.log('✅ Connected to test database');
+            return;
+        } catch (error) {
+            console.log(`⏳ Connection attempt ${i + 1}/${retries} failed, retrying...`);
+            if (i === retries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+};
+
 describe('Message API Tests', () => {
     beforeAll(async () => {
-        // Connect to test database
-        await mongoose.connect(MONGODB_URI);
-    });
+        // Connect to test database with retry logic
+        await connectWithRetry();
+    }, 30000); // Increase timeout to 30 seconds
 
     beforeEach(async () => {
         // Clean database before each test
