@@ -59,7 +59,7 @@
 - **Auto-Deploy:** Yes (on push to `main` via GitHub integration)
 - **Start Command:** `node server.js`
 - **Environment Variables:**
-  - `MONGODB_URI=mongodb+srv://mernuser:Nabin123321123@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority`
+  - `MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority`
   - `PORT=10000`
   - `NODE_ENV=production`
 
