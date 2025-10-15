@@ -1,0 +1,28 @@
+# render.yaml - Infrastructure as Code for Render
+# This file allows you to deploy with one click using the "Deploy to Render" button
+
+services:
+  - type: web
+    name: mern-backend
+    env: node
+    region: oregon # Change to your preferred region
+    plan: free # or starter ($7/month) for no spin-down
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false # Set manually in Render dashboard for security
+      - key: ALLOWED_ORIGINS
+        sync: false # Set manually in Render dashboard
+
+# To use this file:
+# 1. Push to GitHub
+# 2. Go to Render Dashboard
+# 3. New + > Blueprint
+# 4. Connect your repository
+# 5. Render will detect this file and set up your service
