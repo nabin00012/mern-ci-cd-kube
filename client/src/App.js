@@ -21,10 +21,11 @@ function App() {
             setLoading(true);
             setError(null);
             const data = await getMessages();
-            setMessages(data.data || []);
+            setMessages(data?.data || []);
         } catch (err) {
             console.error('Error fetching messages:', err);
             setError('Failed to load messages. Please try again.');
+            setMessages([]);
         } finally {
             setLoading(false);
         }
@@ -46,7 +47,9 @@ function App() {
             
             const newMessage = await createMessage(dataToSend);
 
-            setMessages(prevMessages => [newMessage.data, ...prevMessages]);
+            if (newMessage?.data) {
+                setMessages(prevMessages => [newMessage.data, ...prevMessages]);
+            }
             
             // Clear reply state after successful submission
             setReplyingTo(null);
