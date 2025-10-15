@@ -2,10 +2,11 @@
 
 ## Your MongoDB Connection Details
 
-**Cluster Name**: Cluster0
-**Connection String**: 
+**Important**: Get your actual connection string from MongoDB Atlas by clicking "Connect" on your cluster.
+
+**Connection String Format**: 
 ```
-mongodb+srv://<db_username>:<db_password>@cluster0.k2atslp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://<db_username>:<db_password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ---
@@ -25,12 +26,12 @@ If your username is `mernuser` and password is `YourSecurePassword123`:
 
 **BEFORE:**
 ```
-mongodb+srv://<db_username>:<db_password>@cluster0.k2atslp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://<db_username>:<db_password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 **AFTER:**
 ```
-mongodb+srv://mernuser:YourSecurePassword123@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://mernuser:YourSecurePassword123@cluster0.xxxxx.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ⚠️ **Important**: Add `/mernapp` before the `?` to specify your database name!
@@ -42,7 +43,7 @@ mongodb+srv://mernuser:YourSecurePassword123@cluster0.k2atslp.mongodb.net/mernap
 When you deploy your backend on Render, use this as your `MONGODB_URI` environment variable:
 
 ```
-mongodb+srv://YOUR_USERNAME:YOUR_SECURE_PASSWORD@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://YOUR_USERNAME:YOUR_SECURE_PASSWORD@cluster0.xxxxx.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ### Setting it in Render:
@@ -51,7 +52,7 @@ mongodb+srv://YOUR_USERNAME:YOUR_SECURE_PASSWORD@cluster0.k2atslp.mongodb.net/me
 2. **Environment** tab
 3. Add variable:
    - **Key**: `MONGODB_URI`
-   - **Value**: `mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0`
+   - **Value**: `mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0`
 
 ---
 
@@ -72,7 +73,7 @@ If your password contains special characters like `@`, `#`, `!`, `%`, etc., you 
 
 **Example:** If password is `SecurePass@123#`:
 ```
-mongodb+srv://mernuser:SecurePass%40123%23@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://mernuser:SecurePass%40123%23@cluster0.xxxxx.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ---
@@ -89,7 +90,7 @@ cp .env.example .env
 
 2. Edit `server/.env` and add:
 ```bash
-MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 3. Test locally:

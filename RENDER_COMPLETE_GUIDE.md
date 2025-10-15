@@ -206,14 +206,20 @@ MONGODB_URI
 
 **Value:**
 ```
-mongodb+srv://mernuser:YOUR_NEW_PASSWORD_HERE@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/mernapp?retryWrites=true&w=majority
 ```
 
-⚠️ **REPLACE `YOUR_NEW_PASSWORD_HERE`** with the NEW password you just created in MongoDB Atlas!
+⚠️ **REPLACE with your actual MongoDB Atlas connection string!**
 
-**Example format (don't use this password!):**
+**How to get it:**
+1. MongoDB Atlas → Database → Click "Connect" on your cluster
+2. Choose "Drivers" → Copy connection string
+3. Replace `<password>` with your actual password
+4. Add `/mernapp` before the `?`
+
+**Example format (don't copy this - use your own!):**
 ```
-mongodb+srv://mernuser:xK9mP2nQ8rT4vW@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority&appName=Cluster0
+mongodb+srv://mernuser:xK9mP2nQ8rT4vW@cluster0.abc123.mongodb.net/mernapp?retryWrites=true&w=majority
 ```
 
 ---
