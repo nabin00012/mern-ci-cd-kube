@@ -14,6 +14,10 @@ const MessageList = ({ messages, loading, onRefresh, onReply }) => {
         );
     }
 
+    // Filter to show only top-level messages (not replies)
+    // Replies will be shown inside their parent message cards
+    const topLevelMessages = messages.filter(msg => !msg.replyTo);
+
     if (messages.length === 0) {
         return (
             <div className="message-list">
@@ -32,12 +36,12 @@ const MessageList = ({ messages, loading, onRefresh, onReply }) => {
     return (
         <div className="message-list">
             <div className="message-count">
-                <span className="count-badge">{messages.length}</span>
-                {messages.length === 1 ? 'message' : 'messages'}
+                <span className="count-badge">{topLevelMessages.length}</span>
+                {topLevelMessages.length === 1 ? 'conversation' : 'conversations'}
             </div>
 
             <div className="messages-container">
-                {messages.map((message, index) => (
+                {topLevelMessages.map((message, index) => (
                     <MessageCard
                         key={message.id || message._id || index}
                         message={message}
