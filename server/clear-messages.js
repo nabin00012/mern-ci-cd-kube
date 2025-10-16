@@ -1,8 +1,9 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Message = require('./models/Message');
 
-// MongoDB Atlas connection string
-const MONGODB_URI = 'mongodb+srv://mernuser:Nabindai123321@cluster0.k2atslp.mongodb.net/mernapp?retryWrites=true&w=majority';
+// MongoDB Atlas connection string from environment variable
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mernapp';
 
 async function clearAllMessages() {
     try {
