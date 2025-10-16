@@ -95,7 +95,7 @@
 }
 
 .messages-container {
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: auto;
   padding: 0.5rem 0;
   scrollbar-width: thin;
@@ -150,7 +150,7 @@
   }
 
   .messages-container {
-    max-height: 400px;
+    max-height: 350px;
   }
 
   .empty-state {
