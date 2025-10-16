@@ -67,7 +67,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { text, author } = req.body;
+        const { text, author, replyTo, replyToAuthor, replyToText } = req.body;
 
         if (!text || !author) {
             return res.status(400).json({
@@ -76,10 +76,19 @@ router.post('/', async (req, res) => {
             });
         }
 
-        const message = new Message({
+        const messageData = {
             text: text.trim(),
             author: author.trim()
-        });
+        };
+
+        // Add reply fields if this is a reply
+        if (replyTo) {
+            messageData.replyTo = replyTo;
+            messageData.replyToAuthor = replyToAuthor;
+            messageData.replyToText = replyToText;
+        }
+
+        const message = new Message(messageData);
 
         const savedMessage = await message.save();
 
