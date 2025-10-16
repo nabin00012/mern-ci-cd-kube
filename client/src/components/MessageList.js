@@ -43,6 +43,7 @@ const MessageList = ({ messages, loading, onRefresh, onReply }) => {
                         message={message}
                         index={index}
                         onReply={onReply}
+                        allMessages={messages}
                     />
                 ))}
             </div>
