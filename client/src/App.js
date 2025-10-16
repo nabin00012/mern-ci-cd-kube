@@ -48,7 +48,8 @@ function App() {
             const newMessage = await createMessage(dataToSend);
 
             if (newMessage?.data) {
-                setMessages(prevMessages => [newMessage.data, ...prevMessages]);
+                // Refresh messages from server to get updated state with proper threading
+                await fetchMessages();
             }
             
             // Clear reply state after successful submission
